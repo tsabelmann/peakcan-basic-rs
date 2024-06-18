@@ -1,0 +1,15 @@
+[package]
+name = "peakcan-basic-sys"
+version = "0.1.0"
+edition = "2021"
+build = "build.rs"
+
+[features]
+default = ["v4_9_0_942"]
+v4_9_0_942 = []
+
+[dependencies]
+
+[build-dependencies]
+bindgen = "0.69.4"
+cc = "1.0.99"
