@@ -106,6 +106,66 @@ impl From<PcanOkError> for PcanErrorCode {
     }
 }
 
+impl TryFrom<PcanErrorCode> for PcanError {    
+    type Error = ();
+    fn try_from(value: PcanErrorCode) -> Result<Self, Self::Error> {
+        match value.0 {
+            pcan::PCAN_ERROR_XMTFULL => Ok(PcanError::XmtFull),
+            pcan::PCAN_ERROR_OVERRUN => Ok(PcanError::Overrun),
+            pcan::PCAN_ERROR_BUSLIGHT => Ok(PcanError::BusLight),
+            pcan::PCAN_ERROR_BUSHEAVY => Ok(PcanError::BusHeavy),
+            pcan::PCAN_ERROR_BUSPASSIVE => Ok(PcanError::BusPassive),
+            pcan::PCAN_ERROR_BUSOFF => Ok(PcanError::BusOff),
+            pcan::PCAN_ERROR_QRCVEMPTY => Ok(PcanError::QrcvEmpty),
+            pcan::PCAN_ERROR_QOVERRUN => Ok(PcanError::QOverrun),
+            pcan::PCAN_ERROR_QXMTFULL => Ok(PcanError::QXmtFull),
+            pcan::PCAN_ERROR_REGTEST => Ok(PcanError::RegTest),
+            pcan::PCAN_ERROR_NODRIVER => Ok(PcanError::NoDriver),
+            pcan::PCAN_ERROR_HWINUSE => Ok(PcanError::HwInUse),
+            pcan::PCAN_ERROR_NETINUSE => Ok(PcanError::NetInUse),
+            pcan::PCAN_ERROR_ILLHW => Ok(PcanError::IllHw),
+            pcan::PCAN_ERROR_ILLNET => Ok(PcanError::IllNet),
+            pcan::PCAN_ERROR_ILLCLIENT => Ok(PcanError::IllClient),
+            pcan::PCAN_ERROR_RESOURCE => Ok(PcanError::Resouce),
+            pcan::PCAN_ERROR_ILLPARAMTYPE => Ok(PcanError::IllParamType),
+            pcan::PCAN_ERROR_ILLPARAMVAL => Ok(PcanError::IllParamVal),
+            pcan::PCAN_ERROR_UNKNOWN => Ok(PcanError::Unknown),
+            pcan::PCAN_ERROR_ILLDATA => Ok(PcanError::IllData),
+            pcan::PCAN_ERROR_ILLMODE => Ok(PcanError::IllMode),
+            pcan::PCAN_ERROR_CAUTION => Ok(PcanError::Caution),
+            pcan::PCAN_ERROR_INITIALIZE => Ok(PcanError::Initialize),
+            pcan::PCAN_ERROR_ILLOPERATION => Ok(PcanError::IllOperation),
+            _ => Err(())
+        }
+    }
+}
+
+impl TryFrom<PcanErrorCode> for PcanOkError {
+    type Error = ();
+    fn try_from(value: PcanErrorCode) -> Result<Self, Self::Error> {
+        match value.0 {
+            pcan::PCAN_ERROR_OK => Ok(PcanOkError::Ok),
+            _ => {
+                let error = value.try_into()?;
+                Ok(PcanOkError::Err(error))
+            }
+        }
+    }
+}
+
+impl From<PcanErrorCode> for u32 {
+    fn from(value: PcanErrorCode) -> Self {
+        value.0
+    }
+}
+
+impl From<u32> for PcanErrorCode {
+    fn from(value: u32) -> Self {
+        PcanErrorCode(value)
+    }
+}
+
+
 #[cfg(test)]
 mod tests {
     use super::*;
