@@ -1,5 +1,6 @@
 use crate::hw::channel_identifying::HasChannelIdentifying;
 use crate::hw::device_id::HasDeviceId;
+use crate::hw::hardware_name::HasHardwareName;
 use crate::pcan;
 
 use crate::hw::channel_condition::HasChannelCondition;
@@ -101,3 +102,4 @@ impl Channel for UsbBus {
 impl HasChannelCondition for UsbBus {}
 impl HasChannelIdentifying for UsbBus {}
 impl HasDeviceId for UsbBus {}
+impl HasHardwareName for UsbBus {}
