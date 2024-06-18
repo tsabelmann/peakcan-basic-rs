@@ -1,8 +1,15 @@
-use peakcan_basic_sys::v4_9_0_942;
+use peakcan_basic_sys::v4_9_0_942 as pcan;
+
+pub mod baudrate;
+pub mod bus;
+pub mod channel;
+pub mod error;
+pub mod hw;
+
 
 pub fn add(left: usize, right: usize) -> usize {
     let val = unsafe {
-        v4_9_0_942::CAN_Initialize((v4_9_0_942::PCAN_USBBUS1 as usize).try_into().unwrap(), v4_9_0_942::PCAN_BAUD_500K.try_into().unwrap(), 0, 0, 0)
+        pcan::CAN_Initialize((pcan::PCAN_USBBUS1 as usize).try_into().unwrap(), pcan::PCAN_BAUD_500K.try_into().unwrap(), 0, 0, 0)
     } as usize;
     val
 }
