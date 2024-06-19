@@ -13,7 +13,7 @@ pub struct HwName {
 
 impl AsRef<str> for HwName {
     fn as_ref(&self) -> &str {
-        str::from_utf8(&self.data).unwrap_or("")
+        str::from_utf8(&self.data).unwrap_or("").trim().trim_matches(char::from(0))
     }
 }
 
