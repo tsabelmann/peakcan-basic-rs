@@ -5,9 +5,13 @@ use crate::channel::Channel;
 use std::ffi::c_void;
 
 pub(crate) trait HasDeviceId {}
+pub(crate) trait HasSetDeviceId {}
 
 pub trait DeviceId {
     fn device_id(&self) -> Result<u32, PcanError>;
+}
+
+pub trait SetDeviceId {
     fn set_device_id(&self, value: u32) -> Result<(), PcanError>; 
 }
 
@@ -30,7 +34,9 @@ impl<T: HasDeviceId + Channel> DeviceId for T {
             Err(_) => Err(PcanError::Unknown),
         }
     }
+}
 
+impl<T: HasSetDeviceId + Channel> SetDeviceId for T {
     fn set_device_id(&self, value: u32) -> Result<(), PcanError> {
         let mut data = u32::to_le_bytes(value);
         let code = unsafe {
@@ -47,5 +53,5 @@ impl<T: HasDeviceId + Channel> DeviceId for T {
             Ok(PcanOkError::Err(err)) => Err(err),
             Err(_) => Err(PcanError::Unknown),
         }
-    }
+    } 
 }
