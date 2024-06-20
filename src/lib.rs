@@ -5,6 +5,7 @@ pub mod bus;
 pub mod channel;
 pub mod error;
 pub mod hw;
+pub mod info;
 
 
 pub fn add(left: usize, right: usize) -> usize {
