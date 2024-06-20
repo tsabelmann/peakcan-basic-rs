@@ -5,3 +5,4 @@ pub mod hardware_name;
 pub mod controller_number;
 pub mod ip_address;
 pub mod attached_channels;
+pub mod device_part_number;
