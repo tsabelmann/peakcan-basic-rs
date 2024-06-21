@@ -1,5 +1,7 @@
 use crate::pcan;
 
+pub const STANDARD_CAN_FRAME_MASK: u32 = 0x07_FF;
+pub const EXTENDED_CAN_FRAME_MASK: u32 = 0x1F_FF_FF_FF;
 
 #[derive(Debug, PartialEq, Clone)]
 pub enum IdType {
@@ -20,9 +22,6 @@ pub enum FrameType {
 pub struct CanFrame {
     frame: pcan::TPCANMsg
 }
-
-pub const STANDARD_CAN_FRAME_MASK: u32 = 0x07_FF;
-pub const EXTENDED_CAN_FRAME_MASK: u32 = 0x1F_FF_FF_FF;
 
 impl CanFrame {
     pub fn new(can_id: u32, id_type: IdType) -> CanFrameBuilder {
@@ -120,6 +119,27 @@ impl CanFrame {
     }
 }
 
+impl PartialEq for CanFrame {
+    fn eq(&self, other: &Self) -> bool {
+        if self.frame.ID != other.frame.ID {
+            return false
+        }
+
+        if self.frame.MSGTYPE != other.frame.MSGTYPE {
+            return false
+        }
+
+        if self.frame.LEN != other.frame.LEN {
+            return false
+        }
+
+        if self.frame.DATA[0..(self.frame.LEN as usize)] != other.frame.DATA[0..(other.frame.LEN as usize)] {
+            return false
+        }
+
+        true
+    }
+}
 
 pub struct CanFrameBuilder {
     can_id: u32,
