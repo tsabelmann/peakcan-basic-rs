@@ -141,6 +141,7 @@ impl PartialEq for CanFrame {
     }
 }
 
+#[derive(Debug, PartialEq, Clone)]
 pub struct CanFrameBuilder {
     can_id: u32,
     id_type: IdType,
@@ -154,3 +155,24 @@ pub struct CanFdFrame {
     frame: pcan::TPCANMsgFD
 }
 
+impl PartialEq for CanFdFrame {
+    fn eq(&self, other: &Self) -> bool {
+        if self.frame.ID != other.frame.ID {
+            return false
+        }
+
+        if self.frame.MSGTYPE != other.frame.MSGTYPE {
+            return false
+        }
+
+        if self.frame.DLC != other.frame.DLC {
+            return false
+        }
+
+        if self.frame.DATA[0..(self.frame.DLC as usize)] != other.frame.DATA[0..(other.frame.DLC as usize)] {
+            return false
+        }
+
+        true
+    }
+}
