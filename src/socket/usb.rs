@@ -71,9 +71,6 @@ impl HasSetBusOffAutoreset for UsbSocket {}
 impl HasListenOnly for UsbSocket {}
 impl HasSetListenOnly for UsbSocket {}
 
-impl HasBitrateAdapting for UsbSocket {}
-impl HasSetBitrateAdapting for UsbSocket {}
-
 /* Socket trait implementation */
 
 impl Socket for UsbSocket {
