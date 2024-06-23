@@ -7,6 +7,7 @@ pub mod error;
 pub mod hw;
 pub mod info;
 pub mod frame;
+pub mod socket;
 
 
 pub fn add(left: usize, right: usize) -> usize {
