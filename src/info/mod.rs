@@ -5,3 +5,4 @@ pub mod bitrate_info;
 pub mod bitrate_info_fd;
 pub mod busspeed_nominal;
 pub mod busspeed_data;
+pub mod lan_service_status;
