@@ -29,12 +29,10 @@ impl<T: HasBitrateAdapting + Channel> BitrateAdapting for T {
 
         let value = u32::from_le_bytes(data);
         match PcanOkError::try_from(PcanErrorCode::from(code)) {
-            Ok(PcanOkError::Ok) => {
-                match value {
-                    pcan::PCAN_PARAMETER_OFF => Ok(false),
-                    pcan::PCAN_PARAMETER_ON => Ok(true),
-                    _ => Err(PcanError::Unknown)
-                }
+            Ok(PcanOkError::Ok) => match value {
+                pcan::PCAN_PARAMETER_OFF => Ok(false),
+                pcan::PCAN_PARAMETER_ON => Ok(true),
+                _ => Err(PcanError::Unknown)
             },
             Ok(PcanOkError::Err(err)) => Err(err),
             Err(_) => Err(PcanError::Unknown),
