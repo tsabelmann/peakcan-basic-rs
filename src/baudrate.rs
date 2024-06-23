@@ -40,6 +40,12 @@ pub enum Baudrate {
 #[derive(Debug, PartialEq, Clone, Copy)]
 pub struct Btr0Btr1Code(u16);
 
+impl Btr0Btr1Code {
+    pub fn new(btr0btr1: u16) -> Btr0Btr1Code {
+        Btr0Btr1Code { 0: btr0btr1 }
+    }
+}
+
 impl From<Baudrate> for Btr0Btr1Code {
     fn from(value: Baudrate) -> Self {
         match value {
@@ -91,6 +97,15 @@ impl From<Btr0Btr1Code> for Baudrate {
     }
 }
 
+impl TryFrom<u32> for Btr0Btr1Code {
+    type Error = ();
+    fn try_from(value: u32) -> Result<Self, Self::Error> {
+        match u16::try_from(value) {
+            Ok(value) => Ok(Btr0Btr1Code::new(value)),
+            Err(_) => Err(()),
+        }
+    }
+}
 
 pub trait Btr0Btr1 {
     fn btr0btr1(&self) -> Btr0Btr1Code;
