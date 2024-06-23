@@ -9,6 +9,7 @@ pub mod info;
 pub mod frame;
 pub mod socket;
 pub mod timestamp;
+pub mod special_behaviors;
 
 
 pub fn add(left: usize, right: usize) -> usize {
