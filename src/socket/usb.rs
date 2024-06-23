@@ -3,6 +3,7 @@ use crate::frame::CanFrame;
 use crate::info::bitrate_info::HasBitrateInfo;
 use crate::info::busspeed_data::HasBusSpeedData;
 use crate::info::busspeed_nominal::HasBusSpeedNominal;
+use crate::info::firmware_version::HasFirmwareVersion;
 use crate::pcan;
 use crate::error::{PcanError, PcanErrorCode, PcanOkError};
 use crate::bus::usb::UsbBus;
@@ -53,6 +54,7 @@ impl Channel for UsbSocket {
 impl HasBitrateInfo for UsbSocket {}
 impl HasBusSpeedNominal for UsbSocket {}
 impl HasBusSpeedData for UsbSocket {}
+impl HasFirmwareVersion for UsbSocket {}
 
 /* Socket trait implementation */
 
