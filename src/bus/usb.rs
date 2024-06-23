@@ -1,3 +1,4 @@
+use crate::data_flow::receive_status::{HasReceiveStatus, HasSetReceiveStatus};
 use crate::hw::channel_identifying::HasChannelIdentifying;
 use crate::hw::controller_number::HasControllerNumber;
 use crate::hw::device_id::HasDeviceId;
@@ -126,3 +127,8 @@ impl HasSetListenOnly for UsbBus {}
 
 impl HasBitrateAdapting for UsbBus {}
 impl HasSetBitrateAdapting for UsbBus {}
+
+/* Marker trait implementations - data flow */
+
+impl HasReceiveStatus for UsbBus {}
+impl HasSetReceiveStatus for UsbBus {}
