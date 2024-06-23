@@ -10,24 +10,4 @@ pub mod frame;
 pub mod socket;
 pub mod timestamp;
 pub mod special_behaviors;
-
-
-pub fn add(left: usize, right: usize) -> usize {
-    let val = unsafe {
-        pcan::CAN_Initialize((pcan::PCAN_USBBUS1 as usize).try_into().unwrap(), pcan::PCAN_BAUD_500K.try_into().unwrap(), 0, 0, 0)
-    } as usize;
-    val
-}
-
-
-
-// #[cfg(test)]
-// mod tests {
-//     use super::*;
-
-//     #[test]
-//     fn it_works() {
-//         let result = add(2, 2);
-//         assert_eq!(result, 4);
-//     }
-// }
+pub mod data_flow;
