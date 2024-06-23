@@ -16,5 +16,5 @@ fn main() {
     println!("Set-Allow-RTR-Frames-Status: {:?}", result);
 
     let result = socket.allow_rtr_frames();
-    println!("Allow--Frames-Status: {:?}", result);
+    println!("Allow-RTR-Frames-Status: {:?}", result);
 }
