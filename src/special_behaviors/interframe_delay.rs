@@ -5,7 +5,7 @@ use crate::channel::Channel;
 use std::ffi::c_void;
 
 pub(crate) trait HasInterframeDelay {}
-pub(crate) trait HasSetInterframeDelay{}
+pub(crate) trait HasSetInterframeDelay {}
 
 pub trait InterframeDelay {
     fn interframe_delay(&self) -> Result<u16, PcanError>;
