@@ -9,7 +9,9 @@ use crate::pcan;
 
 use crate::hw::channel_condition::HasChannelCondition;
 use crate::channel::{Channel, ChannelCode};
+use crate::special_behaviors::bitrate_adapting::{HasBitrateAdapting, HasSetBitrateAdapting};
 use crate::special_behaviors::five_volts_power::HasFiveVoltsPower;
+use crate::special_behaviors::listen_only::{HasListenOnly, HasSetListenOnly};
 
 
 #[derive(Debug, PartialEq, Clone)]
@@ -115,6 +117,12 @@ impl HasDevicePartNumber for UsbBus {}
 impl HasChannelFeatures for UsbBus {}
 impl HasBitrateInfo for UsbBus {}
 
-/* Special behavior */
+/* Marker trait implementations - special behavior */
 
 impl HasFiveVoltsPower for UsbBus {}
+
+impl HasListenOnly for UsbBus {}
+impl HasSetListenOnly for UsbBus {}
+
+impl HasBitrateAdapting for UsbBus {}
+impl HasSetBitrateAdapting for UsbBus {}

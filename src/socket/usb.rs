@@ -8,6 +8,7 @@ use crate::pcan;
 use crate::error::{PcanError, PcanErrorCode, PcanOkError};
 use crate::bus::usb::UsbBus;
 use crate::channel::{Channel, ChannelCode};
+use crate::special_behaviors::bitrate_adapting::{HasBitrateAdapting, HasSetBitrateAdapting};
 use crate::special_behaviors::busoff_autoreset::{HasBusOffAutoreset, HasSetBusOffAutoreset};
 use crate::special_behaviors::five_volts_power::{HasFiveVoltsPower, HasSetFiveVoltsPower};
 use crate::special_behaviors::listen_only::{HasListenOnly, HasSetListenOnly};
@@ -69,6 +70,9 @@ impl HasSetBusOffAutoreset for UsbSocket {}
 
 impl HasListenOnly for UsbSocket {}
 impl HasSetListenOnly for UsbSocket {}
+
+impl HasBitrateAdapting for UsbSocket {}
+impl HasSetBitrateAdapting for UsbSocket {}
 
 /* Socket trait implementation */
 
