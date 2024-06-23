@@ -97,6 +97,12 @@ impl From<Btr0Btr1Code> for Baudrate {
     }
 }
 
+impl From<Btr0Btr1Code> for u16 {
+    fn from(value: Btr0Btr1Code) -> Self {
+        value.0
+    }
+}
+
 impl TryFrom<u32> for Btr0Btr1Code {
     type Error = ();
     fn try_from(value: u32) -> Result<Self, Self::Error> {
