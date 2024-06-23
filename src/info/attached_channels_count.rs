@@ -3,7 +3,7 @@ use crate::error::{PcanError, PcanErrorCode, PcanOkError};
 
 use std::ffi::c_void;
 
-pub fn attached_channel_count() -> Result<u32, PcanError> {
+pub fn attached_channels_count() -> Result<u32, PcanError> {
     let mut data = [0u8; 4];
         let code = unsafe {
             pcan::CAN_GetValue(
