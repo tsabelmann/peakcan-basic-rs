@@ -34,7 +34,7 @@ impl FromStr for FwVerison {
         let string = s.trim().trim().trim_matches(char::from(0));
         let splits = string.split('.');
 
-        let mut version = [0u16; 4];
+        let mut version = [0u16; 3];
         for (idx, split) in splits.enumerate() {
             if idx >= 3 {
                 return Err(())
@@ -62,8 +62,8 @@ impl<T: HasFirmwareVersion + Channel> FirmwareVersion for T {
         let mut data = [0u8; FIRMWARE_VERSION_LENGTH];
         let code = unsafe {
             pcan::CAN_GetValue(
-                pcan::PCAN_NONEBUS as u16,
-                pcan::PCAN_API_VERSION as u8,
+                self.channel().into(),
+                pcan::PCAN_FIRMWARE_VERSION as u8,
                 data.as_mut_ptr() as *mut c_void,
                 data.len() as u32
             )
