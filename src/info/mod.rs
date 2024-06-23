@@ -7,3 +7,4 @@ pub mod busspeed_nominal;
 pub mod busspeed_data;
 pub mod lan_service_status;
 pub mod firmware_version;
+pub mod attached_channels_count;
