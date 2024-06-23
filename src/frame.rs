@@ -20,7 +20,7 @@ pub enum FrameType {
 
 #[derive(Debug, Clone)]
 pub struct CanFrame {
-    frame: pcan::TPCANMsg
+    pub(crate) frame: pcan::TPCANMsg
 }
 
 impl CanFrame {
