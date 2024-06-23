@@ -1,4 +1,5 @@
 use crate::baudrate::{Baudrate, Btr0Btr1Code};
+use crate::data_flow::allow_rtr_frames::{HasAllowRtrFrames, HasSetAllowRtrFrames};
 use crate::data_flow::allow_status_frames::{HasAllowStatusFrames, HasSetAllowStatusFrames};
 use crate::data_flow::message_filter::{HasMessageFilter, HasSetMessageFilter};
 use crate::data_flow::receive_status::{HasReceiveStatus, HasSetReceiveStatus};
@@ -91,6 +92,9 @@ impl HasSetReceiveStatus for UsbSocket {}
 
 impl HasAllowStatusFrames for UsbSocket {}
 impl HasSetAllowStatusFrames for UsbSocket {}
+
+impl HasAllowRtrFrames for UsbSocket {}
+impl HasSetAllowRtrFrames for UsbSocket {}
 
 /* Socket trait implementation */
 
