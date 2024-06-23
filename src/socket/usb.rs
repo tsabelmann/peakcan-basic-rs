@@ -8,6 +8,7 @@ use crate::pcan;
 use crate::error::{PcanError, PcanErrorCode, PcanOkError};
 use crate::bus::usb::UsbBus;
 use crate::channel::{Channel, ChannelCode};
+use crate::special_behaviors::busoff_autoreset::{HasBusOffAutoreset, HasSetBusOffAutoreset};
 use crate::special_behaviors::five_volts_power::{HasFiveVoltsPower, HasSetFiveVoltsPower};
 use crate::timestamp::Timestamp;
 
@@ -61,6 +62,9 @@ impl HasFirmwareVersion for UsbSocket {}
 
 impl HasFiveVoltsPower for UsbSocket {}
 impl HasSetFiveVoltsPower for UsbSocket {}
+
+impl HasBusOffAutoreset for UsbSocket {}
+impl HasSetBusOffAutoreset for UsbSocket {}
 
 /* Socket trait implementation */
 
