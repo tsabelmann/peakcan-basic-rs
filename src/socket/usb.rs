@@ -1,6 +1,7 @@
 use crate::baudrate::{Baudrate, Btr0Btr1Code};
 use crate::frame::CanFrame;
 use crate::info::bitrate_info::HasBitrateInfo;
+use crate::info::busspeed_data::HasBusSpeedData;
 use crate::info::busspeed_nominal::HasBusSpeedNominal;
 use crate::pcan;
 use crate::error::{PcanError, PcanErrorCode, PcanOkError};
@@ -51,6 +52,7 @@ impl Channel for UsbSocket {
 
 impl HasBitrateInfo for UsbSocket {}
 impl HasBusSpeedNominal for UsbSocket {}
+impl HasBusSpeedData for UsbSocket {}
 
 /* Socket trait implementation */
 
