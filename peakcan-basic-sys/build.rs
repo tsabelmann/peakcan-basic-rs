@@ -55,6 +55,8 @@ fn bindgen_v4_9_0_942() {
         .allowlist_function("CAN_.*")
         // Allow variables that begin with PCAN
         .allowlist_var("PCAN_.*")
+        // Allow variables that begin with LAN
+        .allowlist_var("LAN_.*")
         // Allow variables that begin with LOG
         .allowlist_var("LOG_.*")
         // Allow variables that begin with TRACE
