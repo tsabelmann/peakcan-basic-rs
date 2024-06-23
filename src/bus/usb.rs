@@ -9,6 +9,7 @@ use crate::pcan;
 
 use crate::hw::channel_condition::HasChannelCondition;
 use crate::channel::{Channel, ChannelCode};
+use crate::special_behaviors::five_volts_power::HasFiveVoltsPower;
 
 
 #[derive(Debug, PartialEq, Clone)]
@@ -103,6 +104,8 @@ impl Channel for UsbBus {
     }
 }
 
+/* Marker trait implementations */
+
 impl HasChannelCondition for UsbBus {}
 impl HasChannelIdentifying for UsbBus {}
 impl HasDeviceId for UsbBus {}
@@ -111,3 +114,7 @@ impl HasControllerNumber for UsbBus {}
 impl HasDevicePartNumber for UsbBus {}
 impl HasChannelFeatures for UsbBus {}
 impl HasBitrateInfo for UsbBus {}
+
+/* Special behavior */
+
+impl HasFiveVoltsPower for UsbBus {}
