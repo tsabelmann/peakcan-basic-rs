@@ -29,7 +29,7 @@ impl CanFrame {
             IdType::Standard => STANDARD_CAN_FRAME_MASK,
             IdType::Extended => EXTENDED_CAN_FRAME_MASK,
         };
-        CanFrameBuilder { can_id: can_id, id_type: id_type, frame_type: FrameType::Normal, data: [0u8; 8] }
+        CanFrameBuilder { can_id: can_id, id_type: id_type, frame_type: FrameType::Normal, dlc: 8, data: [0u8; 8] }
     }
 
     pub fn can_id(&self) -> u32 {
@@ -146,9 +146,79 @@ pub struct CanFrameBuilder {
     can_id: u32,
     id_type: IdType,
     frame_type: FrameType,
+    dlc: u8,
     data: [u8; 8]
 }
 
+impl CanFrameBuilder {
+    pub fn can_id(mut self, can_id: u32, id_type: IdType) -> Self {
+        let can_id = can_id & match id_type {
+            IdType::Standard => STANDARD_CAN_FRAME_MASK,
+            IdType::Extended => EXTENDED_CAN_FRAME_MASK,
+        };
+        self.can_id = can_id;
+        self.id_type = id_type;
+        self
+    }
+    
+    pub fn frame_type(mut self, frame_type: FrameType) -> Self {
+        self.frame_type = frame_type;
+        self
+    }
+
+    pub fn dlc(mut self, dlc: u8) -> Self {
+        let dlc = if dlc > 8 {
+            8
+        } else {
+            dlc
+        };
+        self.dlc = dlc;
+        self
+    }
+
+    pub fn data(mut self, data: &[u8]) -> Self {
+        for (idx, value) in data.iter().enumerate() {
+            if idx < self.dlc as usize {
+                self.data[idx] = *value;
+            } else {
+                break;
+            }
+        }
+        self
+    }
+
+    pub fn build(self) -> CanFrame {
+        let mut msg_type: u8 = 0;
+        msg_type |= match self.id_type {
+            IdType::Standard => pcan::PCAN_MESSAGE_STANDARD,
+            IdType::Extended => pcan::PCAN_MESSAGE_EXTENDED,
+        } as u8;
+
+        msg_type |= match self.frame_type {
+            FrameType::Normal => 0,
+            FrameType::Rtr => pcan::PCAN_MESSAGE_RTR,
+            FrameType::Echo => pcan::PCAN_MESSAGE_ECHO,
+            FrameType::Error => pcan::PCAN_MESSAGE_ERRFRAME,
+            FrameType::PcanStatus => pcan::PCAN_MESSAGE_STATUS,
+        } as u8;
+
+        let frame = pcan::TPCANMsg {
+            ID: self.can_id,
+            MSGTYPE: msg_type,
+            LEN: self.dlc,
+            DATA: self.data,
+        };
+        
+        CanFrame { frame: frame }
+    }
+}
+
+
+impl From<CanFrameBuilder> for CanFrame {
+    fn from(value: CanFrameBuilder) -> Self {
+        value.build()
+    }
+}
 
 #[derive(Debug, Clone)]
 pub struct CanFdFrame {
