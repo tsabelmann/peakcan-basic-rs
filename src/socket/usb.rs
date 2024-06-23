@@ -11,6 +11,7 @@ use crate::channel::{Channel, ChannelCode};
 use crate::special_behaviors::bitrate_adapting::{HasBitrateAdapting, HasSetBitrateAdapting};
 use crate::special_behaviors::busoff_autoreset::{HasBusOffAutoreset, HasSetBusOffAutoreset};
 use crate::special_behaviors::five_volts_power::{HasFiveVoltsPower, HasSetFiveVoltsPower};
+use crate::special_behaviors::interframe_delay::{HasInteframeDelay, HasSetInterframeDelay};
 use crate::special_behaviors::listen_only::{HasListenOnly, HasSetListenOnly};
 use crate::timestamp::Timestamp;
 
@@ -70,6 +71,9 @@ impl HasSetBusOffAutoreset for UsbSocket {}
 
 impl HasListenOnly for UsbSocket {}
 impl HasSetListenOnly for UsbSocket {}
+
+impl HasInteframeDelay for UsbSocket {}
+impl HasSetInterframeDelay for UsbSocket {}
 
 /* Socket trait implementation */
 
