@@ -39,27 +39,27 @@ impl FromStr for ApiVerison {
 
 pub fn api_version() -> Result<ApiVerison, PcanError> {
     let mut data = [0u8; API_VERSION_LENGTH];
-        let code = unsafe {
-            pcan::CAN_GetValue(
-                pcan::PCAN_NONEBUS as u16,
-                pcan::PCAN_API_VERSION as u8,
-                data.as_mut_ptr() as *mut c_void,
-                data.len() as u32
-            )
-        };
+    let code = unsafe {
+        pcan::CAN_GetValue(
+            pcan::PCAN_NONEBUS as u16,
+            pcan::PCAN_API_VERSION as u8,
+            data.as_mut_ptr() as *mut c_void,
+            data.len() as u32
+        )
+    };
 
-        match PcanOkError::try_from(PcanErrorCode::from(code)) {
-            Ok(PcanOkError::Ok) => {
-                if let Ok(string) = str::from_utf8(&data) {
-                    match string.parse() {
-                        Ok(api) => Ok(api),
-                        Err(_) => Err(PcanError::Unknown)
-                    }
-                } else {
-                    Err(PcanError::Unknown)
+    match PcanOkError::try_from(PcanErrorCode::from(code)) {
+        Ok(PcanOkError::Ok) => {
+            if let Ok(string) = str::from_utf8(&data) {
+                match string.parse() {
+                    Ok(api) => Ok(api),
+                    Err(_) => Err(PcanError::Unknown)
                 }
-            },
-            Ok(PcanOkError::Err(err)) => Err(err),
-            Err(_) => Err(PcanError::Unknown),
-        }
+            } else {
+                Err(PcanError::Unknown)
+            }
+        },
+        Ok(PcanOkError::Err(err)) => Err(err),
+        Err(_) => Err(PcanError::Unknown),
+    }
 }
