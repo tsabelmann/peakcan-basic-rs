@@ -10,6 +10,7 @@ use crate::bus::usb::UsbBus;
 use crate::channel::{Channel, ChannelCode};
 use crate::special_behaviors::busoff_autoreset::{HasBusOffAutoreset, HasSetBusOffAutoreset};
 use crate::special_behaviors::five_volts_power::{HasFiveVoltsPower, HasSetFiveVoltsPower};
+use crate::special_behaviors::listen_only::{HasListenOnly, HasSetListenOnly};
 use crate::timestamp::Timestamp;
 
 use super::Socket;
@@ -65,6 +66,9 @@ impl HasSetFiveVoltsPower for UsbSocket {}
 
 impl HasBusOffAutoreset for UsbSocket {}
 impl HasSetBusOffAutoreset for UsbSocket {}
+
+impl HasListenOnly for UsbSocket {}
+impl HasSetListenOnly for UsbSocket {}
 
 /* Socket trait implementation */
 
