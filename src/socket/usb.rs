@@ -1,4 +1,5 @@
 use crate::baudrate::{Baudrate, Btr0Btr1Code};
+use crate::data_flow::message_filter::{HasMessageFilter, HasSetMessageFilter};
 use crate::frame::CanFrame;
 use crate::info::bitrate_info::HasBitrateInfo;
 use crate::info::busspeed_data::HasBusSpeedData;
@@ -77,6 +78,11 @@ impl HasSetInterframeDelay for UsbSocket {}
 
 impl HasHardResetStatus for UsbSocket {}
 impl HasSetHardResetStatus for UsbSocket {}
+
+/* Marker trait implementation - data flow */
+
+impl HasMessageFilter for UsbSocket {}
+impl HasSetMessageFilter for UsbSocket {}
 
 /* Socket trait implementation */
 
