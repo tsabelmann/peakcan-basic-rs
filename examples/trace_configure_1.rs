@@ -1,5 +1,3 @@
-use std::path::PathBuf;
-
 use peakcan_basic::{bus::usb::UsbBus, socket::usb::UsbSocket, trace::{trace_configure::{SetTraceConfigure, TraceConfigure, TraceFileConfiguration, TraceFileOptions}, trace_location::{SetTraceLocation, TraceLocation}}};
 
 fn main() {
