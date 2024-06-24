@@ -22,6 +22,7 @@ use crate::special_behaviors::hard_reset_status::{HasHardResetStatus, HasSetHard
 use crate::special_behaviors::interframe_delay::{HasInterframeDelay, HasSetInterframeDelay};
 use crate::special_behaviors::listen_only::{HasListenOnly, HasSetListenOnly};
 use crate::timestamp::Timestamp;
+use crate::trace::trace_configure::{HasSetTraceConfigure, HasTraceConfigure};
 use crate::trace::trace_location::{HasSetTraceLocation, HasTraceLocation};
 use crate::trace::trace_size::{HasSetTraceSize, HasTraceSize};
 use crate::trace::trace_status::{HasSetTraceStatus, HasTraceStatus};
@@ -125,6 +126,9 @@ impl HasSetTraceStatus for UsbSocket {}
 
 impl HasTraceSize for UsbSocket {}
 impl HasSetTraceSize for UsbSocket {}
+
+impl HasTraceConfigure for UsbSocket {}
+impl HasSetTraceConfigure for UsbSocket {}
 
 /* Socket trait implementation */
 
