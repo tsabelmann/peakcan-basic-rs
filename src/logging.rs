@@ -218,3 +218,22 @@ pub fn set_log_configuration<T: Into<LogFunction>>(value: T) -> Result<(), PcanE
         Err(_) => Err(PcanError::Unknown),
     }
 }
+
+pub fn set_log_text<T: AsRef<str>>(value: T) -> Result<(), PcanError> {
+    let data = value.as_ref();
+
+    let code = unsafe {
+        pcan::CAN_SetValue(
+            pcan::PCAN_NONEBUS as u16,
+            pcan::PCAN_LOG_TEXT as u8,
+            data.as_ptr() as *mut c_void,
+            data.len() as u32,
+        )
+    };
+
+    match PcanOkError::try_from(PcanErrorCode::from(code)) {
+        Ok(PcanOkError::Ok) => Ok(()),
+        Ok(PcanOkError::Err(err)) => Err(err),
+        Err(_) => Err(PcanError::Unknown),
+    }
+}
