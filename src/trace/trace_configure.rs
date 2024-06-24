@@ -7,7 +7,7 @@ use std::ffi::c_void;
 pub(crate) trait HasTraceConfigure {}
 pub(crate) trait HasSetTraceConfigure {}
 
-
+#[derive(Debug, PartialEq, Clone)]
 pub enum TraceFileOptions {
     Segmented,
     Date,
@@ -16,7 +16,7 @@ pub enum TraceFileOptions {
     DataLength
 }
 
-
+#[derive(Debug, PartialEq, Clone)]
 pub struct TraceFileConfiguration {
     inner: u32
 }
@@ -63,6 +63,19 @@ impl TraceFileConfiguration {
 
     pub fn file_data_length(&self) -> bool {
         self.inner & pcan::TRACE_FILE_DATA_LENGTH == pcan::TRACE_FILE_DATA_LENGTH
+    }
+}
+
+impl From<TraceFileOptions> for TraceFileConfiguration {
+    fn from(value: TraceFileOptions) -> Self {
+        let value = match value {
+            TraceFileOptions::Segmented => pcan::TRACE_FILE_SEGMENTED,
+            TraceFileOptions::Date => pcan::TRACE_FILE_DATE,
+            TraceFileOptions::Time => pcan::TRACE_FILE_TIME,
+            TraceFileOptions::Overwrite => pcan::TRACE_FILE_OVERWRITE,
+            TraceFileOptions::DataLength => pcan::TRACE_FILE_DATA_LENGTH,
+        };
+        TraceFileConfiguration { inner: value }
     }
 }
 
