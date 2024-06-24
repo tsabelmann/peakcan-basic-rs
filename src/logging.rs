@@ -98,11 +98,17 @@ pub fn set_log_status(value: bool) -> Result<(), PcanError> {
 
 #[derive(Debug, PartialEq, Clone)]
 pub enum LogOptions {
+    /// This value is always active.
     Default,
+    /// Logs when a function is entered.
     Entry,
+    /// Logs the parameters passed to a function.
     Parameters,
+    /// Logs when a function is leaved and its return value.
     Leave,
+    /// Logs the parameters and CAN data passed to the CAN_Write function.
     Write,
+    /// Logs the parameters and CAN data received through the CAN_Read function.
     Read
 }
 
