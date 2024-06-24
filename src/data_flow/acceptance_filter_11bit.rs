@@ -4,18 +4,18 @@ use crate::channel::Channel;
 
 use std::ffi::c_void;
 
-pub(crate) trait HasAcceptanceFilter11bit {}
-pub(crate) trait HasSetAcceptanceFilter11bit {}
+pub(crate) trait HasAcceptanceFilter11Bit {}
+pub(crate) trait HasSetAcceptanceFilter11Bit {}
 
-pub trait AcceptanceFilter11bit {
+pub trait AcceptanceFilter11Bit {
     fn acceptance_filter_11bit(&self) -> Result<(u32, u32), PcanError>;
 }
 
-pub trait SetAcceptanceFilter11bit {
+pub trait SetAcceptanceFilter11Bit {
     fn set_acceptance_filter_11bit(&self, code: u32, mask: u32) -> Result<(), PcanError>; 
 }
 
-impl<T: HasAcceptanceFilter11bit + Channel> AcceptanceFilter11bit for T {
+impl<T: HasAcceptanceFilter11Bit + Channel> AcceptanceFilter11Bit for T {
     fn acceptance_filter_11bit(&self) -> Result<(u32, u32), PcanError> {
         let mut data = [0u8; 8];
         let code = unsafe {
@@ -40,7 +40,7 @@ impl<T: HasAcceptanceFilter11bit + Channel> AcceptanceFilter11bit for T {
     }
 }
 
-impl<T: HasSetAcceptanceFilter11bit + Channel> SetAcceptanceFilter11bit for T {
+impl<T: HasSetAcceptanceFilter11Bit + Channel> SetAcceptanceFilter11Bit for T {
     fn set_acceptance_filter_11bit(&self, code: u32, mask: u32) -> Result<(), PcanError> {
         let value = ((code as u64) << 32) | ((mask as u64) << 0);
         let mut data = value.to_le_bytes();
