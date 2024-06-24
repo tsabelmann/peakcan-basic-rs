@@ -1,5 +1,6 @@
 use crate::baudrate::{Baudrate, Btr0Btr1Code};
 use crate::data_flow::acceptance_filter_11bit::{HasAcceptanceFilter11Bit, HasSetAcceptanceFilter11Bit};
+use crate::data_flow::acceptance_filter_29bit::{HasAcceptanceFilter29Bit, HasSetAcceptanceFilter29Bit};
 use crate::data_flow::allow_echo_frames::{HasAllowEchoFrames, HasSetAllowEchoFrames};
 use crate::data_flow::allow_error_frames::{HasAllowErrorFrames, HasSetAllowErrorFrames};
 use crate::data_flow::allow_rtr_frames::{HasAllowRtrFrames, HasSetAllowRtrFrames};
@@ -107,6 +108,9 @@ impl HasSetAllowEchoFrames for UsbSocket {}
 
 impl HasAcceptanceFilter11Bit for UsbSocket {}
 impl HasSetAcceptanceFilter11Bit for UsbSocket {}
+
+impl HasAcceptanceFilter29Bit for UsbSocket {}
+impl HasSetAcceptanceFilter29Bit for UsbSocket {}
 
 /* Socket trait implementation */
 
