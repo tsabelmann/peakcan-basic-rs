@@ -95,3 +95,120 @@ pub fn set_log_status(value: bool) -> Result<(), PcanError> {
         Err(_) => Err(PcanError::Unknown),
     }
 }
+
+#[derive(Debug, PartialEq, Clone)]
+pub enum LogOptions {
+    Default,
+    Entry,
+    Parameters,
+    Leave,
+    Write,
+    Read
+}
+
+#[derive(Debug, PartialEq, Clone)]
+pub struct LogFunction {
+    inner: u32
+}
+
+impl LogFunction {
+    pub fn new(value: LogOptions) -> LogFunction {
+        LogFunction::from_options(&[value])
+    }
+
+    pub fn from_options(values: &[LogOptions]) -> LogFunction {
+        let mut value = 0u32;
+        for opt in values {
+            let mask = match opt {
+                LogOptions::Default => pcan::LOG_FUNCTION_DEFAULT,
+                LogOptions::Entry => pcan::LOG_FUNCTION_ENTRY,
+                LogOptions::Parameters => pcan::LOG_FUNCTION_PARAMETERS,
+                LogOptions::Leave => pcan::LOG_FUNCTION_LEAVE,
+                LogOptions::Write => pcan::LOG_FUNCTION_WRITE,
+                LogOptions::Read => pcan::LOG_FUNCTION_READ,
+            };
+            value |= mask;
+        }
+        value &= pcan::LOG_FUNCTION_ALL;
+        LogFunction { inner: value }
+    }
+
+    pub fn log_default(&self) -> bool {
+        self.inner & pcan::LOG_FUNCTION_DEFAULT == pcan::LOG_FUNCTION_DEFAULT
+    }
+    pub fn log_entry(&self) -> bool {
+        self.inner & pcan::LOG_FUNCTION_DEFAULT == pcan::LOG_FUNCTION_ENTRY
+    }
+
+    pub fn log_parameters(&self) -> bool {
+        self.inner & pcan::LOG_FUNCTION_DEFAULT == pcan::LOG_FUNCTION_PARAMETERS
+    }
+    
+    pub fn log_leave(&self) -> bool {
+        self.inner & pcan::LOG_FUNCTION_DEFAULT == pcan::LOG_FUNCTION_LEAVE
+    }
+    
+    pub fn log_write(&self) -> bool {
+        self.inner & pcan::LOG_FUNCTION_DEFAULT == pcan::LOG_FUNCTION_WRITE
+    }
+    
+    pub fn log_read(&self) -> bool {
+        self.inner & pcan::LOG_FUNCTION_DEFAULT == pcan::LOG_FUNCTION_READ
+    }
+}
+
+impl From<LogOptions> for LogFunction {
+    fn from(value: LogOptions) -> Self {
+        let value = match value {
+            LogOptions::Default => pcan::LOG_FUNCTION_DEFAULT,
+            LogOptions::Entry => pcan::LOG_FUNCTION_ENTRY,
+            LogOptions::Parameters => pcan::LOG_FUNCTION_PARAMETERS,
+            LogOptions::Leave => pcan::LOG_FUNCTION_LEAVE,
+            LogOptions::Write => pcan::LOG_FUNCTION_WRITE,
+            LogOptions::Read => pcan::LOG_FUNCTION_READ,
+        };
+        LogFunction { inner: value }
+    }
+}
+
+pub fn log_configuration() -> Result<LogFunction, PcanError> {
+    let mut data = [0u8; 4];
+    let code = unsafe {
+        pcan::CAN_GetValue(
+            pcan::PCAN_NONEBUS as u16,
+            pcan::PCAN_LOG_CONFIGURE as u8,
+            data.as_mut_ptr() as *mut c_void,
+            data.len() as u32
+        )
+    };
+
+    let value = u32::from_le_bytes(data);
+    match PcanOkError::try_from(PcanErrorCode::from(code)) {
+        Ok(PcanOkError::Ok) => {
+            let value = value & pcan::LOG_FUNCTION_ALL;
+            Ok( LogFunction {inner: value} )
+        },
+        Ok(PcanOkError::Err(err)) => Err(err),
+        Err(_) => Err(PcanError::Unknown),
+    }
+}
+
+pub fn set_log_configuration<T: Into<LogFunction>>(value: T) -> Result<(), PcanError> {
+    let value: LogFunction = value.into();
+    let data = value.inner.to_le_bytes();
+
+    let code = unsafe {
+        pcan::CAN_SetValue(
+            pcan::PCAN_NONEBUS as u16,
+            pcan::PCAN_LOG_CONFIGURE as u8,
+            data.as_ptr() as *mut c_void,
+            data.len() as u32,
+        )
+    };
+
+    match PcanOkError::try_from(PcanErrorCode::from(code)) {
+        Ok(PcanOkError::Ok) => Ok(()),
+        Ok(PcanOkError::Err(err)) => Err(err),
+        Err(_) => Err(PcanError::Unknown),
+    }
+}
