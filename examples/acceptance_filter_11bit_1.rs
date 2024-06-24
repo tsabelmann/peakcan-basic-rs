@@ -1,4 +1,4 @@
-use peakcan_basic::{bus::usb::UsbBus, data_flow::{acceptance_filter_11bit::{AcceptanceFilter11bit, SetAcceptanceFilter11bit}, allow_status_frames::{AllowStatusFrames, SetAllowStatusFrames}}, socket::usb::UsbSocket};
+use peakcan_basic::{bus::usb::UsbBus, data_flow::acceptance_filter_11bit::{AcceptanceFilter11bit, SetAcceptanceFilter11bit}, socket::usb::UsbSocket};
 
 fn main() {
     let socket = UsbSocket::open(UsbBus::Usb1, peakcan_basic::baudrate::Baudrate::Baud500K).expect("Could not open USB1");
