@@ -1,4 +1,4 @@
-use peakcan_basic::{bus::usb::UsbBus, socket::usb::UsbSocket, trace::{trace_configure::{SetTraceConfigure, TraceConfigure, TraceFileConfiguration, TraceFileOptions}, trace_location::{SetTraceLocation, TraceLocation}}};
+use peakcan_basic::{bus::usb::UsbBus, socket::usb::UsbSocket, trace::trace_configure::{SetTraceConfigure, TraceConfigure, TraceFileConfiguration, TraceFileOptions}};
 
 fn main() {
     let socket = UsbSocket::open(UsbBus::Usb1, peakcan_basic::baudrate::Baudrate::Baud500K).expect("Could not open USB1");
