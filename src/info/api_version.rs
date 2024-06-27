@@ -14,6 +14,24 @@ pub struct ApiVerison {
     build: u16
 }
 
+impl ApiVerison {
+    pub fn major(&self) -> u16 {
+        self.major
+    }
+
+    pub fn minor(&self) -> u16 {
+        self.minor
+    }
+
+    pub fn patch(&self) -> u16 {
+        self.patch
+    }
+
+    pub fn build(&self) -> u16 {
+        self.build
+    }
+}
+
 impl FromStr for ApiVerison {
     type Err = ();
     fn from_str(s: &str) -> Result<Self, Self::Err> {
