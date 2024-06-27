@@ -87,11 +87,12 @@ impl HasDevicePartNumber for UsbSocket {}
 
 impl HasChannelFeatures for UsbSocket {}
 
-/* Marker traits */
-
 impl HasBitrateInfo for UsbSocket {}
+
 impl HasBusSpeedNominal for UsbSocket {}
+
 impl HasBusSpeedData for UsbSocket {}
+
 impl HasFirmwareVersion for UsbSocket {}
 
 /* Marker trait implementation - special behavior */
