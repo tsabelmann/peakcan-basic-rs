@@ -79,6 +79,7 @@ impl HasSetDeviceId for UsbSocket {}
 impl HasHardwareName for UsbSocket {}
 
 impl HasControllerNumber for UsbSocket {}
+
 impl HasSetControllerNumber for UsbSocket {}
 
 impl HasDevicePartNumber for UsbSocket {}
