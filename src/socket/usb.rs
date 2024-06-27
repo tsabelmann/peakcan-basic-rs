@@ -9,6 +9,7 @@ use crate::data_flow::message_filter::{HasMessageFilter, HasSetMessageFilter};
 use crate::data_flow::receive_status::{HasReceiveStatus, HasSetReceiveStatus};
 use crate::frame::CanFrame;
 use crate::hw::device_id::{HasDeviceId, HasSetDeviceId};
+use crate::hw::hardware_name::HasHardwareName;
 use crate::info::bitrate_info::HasBitrateInfo;
 use crate::info::busspeed_data::HasBusSpeedData;
 use crate::info::busspeed_nominal::HasBusSpeedNominal;
@@ -71,6 +72,8 @@ impl Channel for UsbSocket {
 
 impl HasDeviceId for UsbSocket {}
 impl HasSetDeviceId for UsbSocket {}
+
+impl HasHardwareName for UsbSocket {}
 
 /* Marker traits */
 
