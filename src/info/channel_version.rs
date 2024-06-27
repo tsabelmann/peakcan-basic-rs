@@ -8,7 +8,7 @@ use std::str;
 
 #[derive(Debug, PartialEq, Clone)]
 pub struct ChVersion {
-    data: [u8; pcan::MAX_LENGTH_HARDWARE_NAME as usize]
+    data: [u8; pcan::MAX_LENGTH_VERSION_STRING as usize]
 }
 
 impl AsRef<str> for ChVersion {
@@ -25,11 +25,11 @@ pub trait ChannelVersion {
 
 impl<T: HasChannelVersion + Channel> ChannelVersion for T {
     fn channel_version(&self) -> Result<ChVersion, PcanError> {
-        let mut data = [b'\0'; pcan::MAX_LENGTH_HARDWARE_NAME as usize];
+        let mut data = [b'\0'; pcan::MAX_LENGTH_VERSION_STRING as usize];
         let code = unsafe {
             pcan::CAN_GetValue(
                 self.channel().into(),
-                pcan::PCAN_HARDWARE_NAME as u8,
+                pcan::PCAN_CHANNEL_VERSION as u8,
                 data.as_mut_ptr() as *mut c_void,
                 data.len() as u32
             )
