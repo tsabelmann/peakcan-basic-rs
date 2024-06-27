@@ -6,6 +6,7 @@ use crate::hw::device_part_number::HasDevicePartNumber;
 use crate::hw::hardware_name::HasHardwareName;
 use crate::info::bitrate_info::HasBitrateInfo;
 use crate::info::channel_features::HasChannelFeatures;
+use crate::info::channel_version::HasChannelVersion;
 use crate::pcan;
 
 use crate::hw::channel_condition::HasChannelCondition;
@@ -107,15 +108,26 @@ impl Channel for UsbBus {
     }
 }
 
-/* Marker trait implementations */
+/* Marker trait implementations - hardware */
 
 impl HasChannelCondition for UsbBus {}
+
 impl HasChannelIdentifying for UsbBus {}
+
 impl HasDeviceId for UsbBus {}
+
 impl HasHardwareName for UsbBus {}
+
 impl HasControllerNumber for UsbBus {}
+
 impl HasDevicePartNumber for UsbBus {}
+
+/* Marker trait implementations - info */
+
+impl HasChannelVersion for UsbBus {}
+
 impl HasChannelFeatures for UsbBus {}
+
 impl HasBitrateInfo for UsbBus {}
 
 /* Marker trait implementations - special behavior */
