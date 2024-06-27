@@ -10,6 +10,7 @@ use crate::data_flow::receive_status::{HasReceiveStatus, HasSetReceiveStatus};
 use crate::frame::CanFrame;
 use crate::hw::controller_number::{HasControllerNumber, HasSetControllerNumber};
 use crate::hw::device_id::{HasDeviceId, HasSetDeviceId};
+use crate::hw::device_part_number::HasDevicePartNumber;
 use crate::hw::hardware_name::HasHardwareName;
 use crate::info::bitrate_info::HasBitrateInfo;
 use crate::info::busspeed_data::HasBusSpeedData;
@@ -78,6 +79,8 @@ impl HasHardwareName for UsbSocket {}
 
 impl HasControllerNumber for UsbSocket {}
 impl HasSetControllerNumber for UsbSocket {}
+
+impl HasDevicePartNumber for UsbSocket {}
 
 /* Marker traits */
 
