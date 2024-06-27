@@ -15,6 +15,7 @@ use crate::hw::hardware_name::HasHardwareName;
 use crate::info::bitrate_info::HasBitrateInfo;
 use crate::info::busspeed_data::HasBusSpeedData;
 use crate::info::busspeed_nominal::HasBusSpeedNominal;
+use crate::info::channel_features::HasChannelFeatures;
 use crate::info::firmware_version::HasFirmwareVersion;
 use crate::pcan;
 use crate::error::{PcanError, PcanErrorCode, PcanOkError};
@@ -81,6 +82,10 @@ impl HasControllerNumber for UsbSocket {}
 impl HasSetControllerNumber for UsbSocket {}
 
 impl HasDevicePartNumber for UsbSocket {}
+
+/* Marker trait implementations - info */
+
+impl HasChannelFeatures for UsbSocket {}
 
 /* Marker traits */
 
