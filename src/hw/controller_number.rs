@@ -27,9 +27,7 @@ impl<T: HasControllerNumber + Channel> ControllerNumber for T {
                 data.len() as u32
             )
         };
-
-        println!("{:?}", data);
-
+        
         let value = u32::from_le_bytes(data);
         match PcanOkError::try_from(PcanErrorCode::from(code)) {
             Ok(PcanOkError::Ok) => Ok(value),
