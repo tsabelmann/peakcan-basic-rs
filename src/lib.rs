@@ -15,5 +15,11 @@ pub mod logging;
 pub mod trace;
 pub mod constants;
 
-/// Re-export of frame module
+/// Re-export of baudrate module.
+pub use baudrate::{Baudrate, Btr0Btr1, Btr0Btr1Code};
+
+/// Re-export of bus module.
+pub use bus::{dng::DngBus, isa::IsaBus, lan::LanBus, pcc::PccBus, pci::PciBus, usb::UsbBus};
+
+/// Re-export of frame module.
 pub use frame::{CanFrame, CanFdFrame, CanFrameBuilder};
