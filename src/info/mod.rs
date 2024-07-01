@@ -9,3 +9,15 @@ pub mod lan_service_status;
 pub mod firmware_version;
 pub mod attached_channels_count;
 pub mod lan_channel_direction;
+
+pub use api_version::{ApiVerison, api_version};
+pub use channel_version::{ChVersion, ChannelVersion};
+pub use channel_features::ChannelFeatures;
+pub use bitrate_info::BitrateInfo;
+// pub use bitrate_info_fd::{self};
+pub use busspeed_nominal::BusSpeedNominal;
+pub use busspeed_data::BusSpeedData;
+pub use lan_service_status::{LanServiceStatus, lan_service_status};
+pub use firmware_version::{FwVerison, FirmwareVersion};
+pub use attached_channels_count::attached_channels_count;
+pub use lan_channel_direction::{LanDirection, LanChannelDirection};
