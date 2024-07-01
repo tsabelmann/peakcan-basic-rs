@@ -12,3 +12,5 @@ pub trait Socket {
         Ok(frame)
     }
 }
+
+pub use usb::UsbSocket;
