@@ -1,3 +1,5 @@
+use std::ops::{Index, IndexMut};
+
 use crate::pcan;
 
 pub const STANDARD_CAN_FRAME_MASK: u32 = 0x07_FF;
@@ -138,6 +140,20 @@ impl PartialEq for CanFrame {
         }
 
         true
+    }
+}
+
+impl Index<usize> for CanFrame {
+    type Output = u8;
+    fn index(&self, index: usize) -> &Self::Output {
+        &self.frame.DATA[..self.dlc() as usize][index]
+    }
+}
+
+impl IndexMut<usize> for CanFrame {
+    fn index_mut<'a>(&'a mut self, index: usize) -> &mut Self::Output {
+        let dlc = self.dlc() as usize;
+        &mut self.frame.DATA[..dlc][index]
     }
 }
 
