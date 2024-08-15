@@ -46,7 +46,7 @@ impl CanFrame {
 
     pub fn is_standard_frame(&self) -> bool {
         let mask = pcan::PCAN_MESSAGE_STANDARD as u8;
-        if self.frame.MSGTYPE == mask {
+        if self.frame.MSGTYPE & 0b0000_0001 == mask {
             true
         } else {
             false
