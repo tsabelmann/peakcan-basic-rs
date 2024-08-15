@@ -35,22 +35,18 @@ impl CanFrame {
     }
 
     pub fn can_id(&self) -> u32 {
-        let id = if self.is_standard_frame() {
-            println!("1");
+        if self.is_standard_frame() {
             self.frame.ID & STANDARD_CAN_FRAME_MASK
         } else if self.is_extended_frame() {
-            println!("2");
             self.frame.ID & EXTENDED_CAN_FRAME_MASK
         } else {
-            println!("3");
             self.frame.ID & EXTENDED_CAN_FRAME_MASK
-        };
-        id
+        }
     }
 
     pub fn is_standard_frame(&self) -> bool {
         let mask = pcan::PCAN_MESSAGE_STANDARD as u8;
-        if self.frame.MSGTYPE & mask == mask {
+        if self.frame.MSGTYPE & 0b0000_0001 == mask {
             true
         } else {
             false
