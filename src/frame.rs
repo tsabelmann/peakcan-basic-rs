@@ -35,13 +35,14 @@ impl CanFrame {
     }
 
     pub fn can_id(&self) -> u32 {
-        if self.is_extended_frame() {
-            let id = self.frame.ID & EXTENDED_CAN_FRAME_MASK;
-            id
+        let id = if self.is_standard_frame() {
+            self.frame.ID & STANDARD_CAN_FRAME_MASK
+        } else if self.is_extended_frame() {
+            self.frame.ID & EXTENDED_CAN_FRAME_MASK
         } else {
-            let id = self.frame.ID & STANDARD_CAN_FRAME_MASK;
-            id
-        }
+            self.frame.ID & EXTENDED_CAN_FRAME_MASK
+        };
+        id
     }
 
     pub fn is_standard_frame(&self) -> bool {
